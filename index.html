@@ -4,288 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Finlo</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#F7F5F0; --surface:#FFFFFF; --surface2:#F0EDE6; --border:#E5E1D8;
-  --text:#1A1814; --text2:#6B6760; --text3:#A8A49E;
-  --accent:#2D5A3D; --accent-light:#EAF3DE;
-  --accent2:#C4873A; --accent2-light:#FDF3E3;
-  --danger:#B84040; --danger-light:#FCEDED;
-  --radius:14px; --radius-sm:8px;
-}
+:root{--bg:#F7F5F0;--sur:#FFFFFF;--sur2:#F0EDE6;--bor:#E5E1D8;--tx:#1A1814;--tx2:#6B6760;--tx3:#A8A49E;--gr:#2D5A3D;--grl:#EAF3DE;--am:#C4873A;--aml:#FDF3E3;--re:#B84040;--rel:#FCEDED;--ra:14px;--rs:8px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);font-size:15px}
+html,body{height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--tx);font-size:15px}
 
-#auth-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem}
-.auth-logo{font-family:'Fraunces',serif;font-size:42px;font-weight:300;color:var(--accent);letter-spacing:-1px;margin-bottom:4px}
-.auth-tagline{font-size:13px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3rem}
-.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;width:100%;max-width:380px}
-.auth-tabs{display:flex;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:1.5rem}
-.auth-tab{flex:1;padding:9px;font-family:'DM Sans',sans-serif;font-size:13px;border:none;background:transparent;color:var(--text2);cursor:pointer}
-.auth-tab.active{background:var(--accent);color:#fff}
-.field{margin-bottom:1rem}
-.field label{display:block;font-size:11px;color:var(--text2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
-.field input{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--text);outline:none}
-.field input:focus{border-color:var(--accent)}
-.btn-primary{width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;margin-top:.5rem}
-.btn-primary:hover{opacity:.9}
-.auth-msg{font-size:12px;color:var(--danger);margin-top:8px;text-align:center;min-height:18px}
+/* AUTH */
+#auth{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem}
+.alogo{font-family:'Fraunces',serif;font-size:40px;font-weight:300;color:var(--gr);letter-spacing:-1px;margin-bottom:4px}
+.atag{font-size:12px;color:var(--tx3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2.5rem}
+.acard{background:var(--sur);border:1px solid var(--bor);border-radius:var(--ra);padding:1.75rem;width:100%;max-width:380px}
+.anote{background:var(--grl);border:1px solid var(--gr);border-radius:var(--rs);padding:.65rem .9rem;font-size:12px;color:var(--gr);margin-bottom:1.25rem;line-height:1.5}
+.atabs{display:flex;border:1px solid var(--bor);border-radius:var(--rs);overflow:hidden;margin-bottom:1.25rem}
+.atab{flex:1;padding:9px;font-family:'DM Sans',sans-serif;font-size:13px;border:none;background:transparent;color:var(--tx2);cursor:pointer}
+.atab.on{background:var(--gr);color:#fff}
+.fl{margin-bottom:1rem}
+.fl label{display:block;font-size:11px;color:var(--tx2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px}
+.fl input{width:100%;padding:10px 12px;border:1px solid var(--bor);border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:14px;background:var(--bg);color:var(--tx);outline:none;-webkit-appearance:none}
+.fl input:focus{border-color:var(--gr)}
+.abtn{width:100%;padding:12px;background:var(--gr);color:#fff;border:none;border-radius:var(--rs);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;margin-top:.5rem;-webkit-appearance:none}
+.abtn:active{opacity:.85}
+.amsg{font-size:12px;margin-top:8px;text-align:center;min-height:18px}
+.amsg.err{color:var(--re)}
+.amsg.ok{color:var(--gr)}
 
-#app-screen{display:none;min-height:100vh;flex-direction:column}
-#app-screen.visible{display:flex}
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.25rem;height:58px;display:flex;align-items:center;position:sticky;top:0;z-index:100}
-.topbar-logo{font-family:'Fraunces',serif;font-size:22px;font-weight:300;color:var(--accent);letter-spacing:-.5px;flex:1}
-.topbar-user{display:flex;align-items:center;gap:10px}
-.avatar{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0}
-.topbar-name{font-size:13px;color:var(--text2)}
-.btn-logout{font-size:12px;color:var(--text3);background:none;border:1px solid var(--border);border-radius:20px;padding:4px 12px;cursor:pointer;font-family:'DM Sans',sans-serif}
-.btn-logout:hover{color:var(--danger);border-color:var(--danger)}
-.main-content{flex:1;padding:1.25rem;max-width:780px;margin:0 auto;width:100%;padding-bottom:90px}
+/* APP */
+#app{display:none;min-height:100vh;flex-direction:column}
+#app.on{display:flex}
+.topbar{background:var(--sur);border-bottom:1px solid var(--bor);padding:0 1.25rem;height:56px;display:flex;align-items:center;position:sticky;top:0;z-index:100}
+.tlogo{font-family:'Fraunces',serif;font-size:22px;font-weight:300;color:var(--gr);letter-spacing:-.5px;flex:1}
+.tuser{display:flex;align-items:center;gap:8px}
+.tname{font-size:13px;color:var(--tx2)}
+.tav{width:32px;height:32px;border-radius:50%;background:var(--gr);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0}
+.tout{font-size:12px;color:var(--tx3);background:none;border:1px solid var(--bor);border-radius:20px;padding:4px 10px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.tout:active{color:var(--re);border-color:var(--re)}
+.wrap{flex:1;padding:1.25rem;max-width:780px;margin:0 auto;width:100%;padding-bottom:85px}
 
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
-.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px 0;gap:3px;background:none;border:none;cursor:pointer;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:.5px;text-transform:uppercase}
-.nav-btn.active{color:var(--accent)}
-.nav-icon{font-size:18px}
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;background:var(--sur);border-top:1px solid var(--bor);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom,0px)}
+.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 0;gap:3px;background:none;border:none;cursor:pointer;color:var(--tx3);font-family:'DM Sans',sans-serif;font-size:9px;letter-spacing:.5px;text-transform:uppercase}
+.nb.on{color:var(--gr)}
+.ni{font-size:18px}
 
-.page{display:none}
-.page.active{display:block;animation:fadeUp .25s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-.page-title{font-family:'Fraunces',serif;font-size:26px;font-weight:300;color:var(--text);margin-bottom:1.25rem;letter-spacing:-.5px}
-.section-label{font-size:11px;color:var(--text3);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:.75rem}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.25rem;margin-bottom:1rem}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1rem}
-.metric{background:var(--surface2);border-radius:var(--radius-sm);padding:.9rem}
-.metric-label{font-size:10px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
-.metric-val{font-size:19px;font-weight:500;color:var(--text)}
-.metric-val.green{color:var(--accent)}
-.metric-val.red{color:var(--danger)}
-.metric-val.amber{color:var(--accent2)}
-
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.form-row.triple{grid-template-columns:1fr 1fr 1fr}
-.form-group{display:flex;flex-direction:column;gap:5px}
-.form-group label{font-size:10px;color:var(--text2);letter-spacing:.8px;text-transform:uppercase}
-.form-group input,.form-group select{font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 11px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);color:var(--text);outline:none}
-.form-group input:focus,.form-group select:focus{border-color:var(--accent)}
-.btn-green{padding:10px 16px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;width:100%;margin-top:4px}
-.btn-amber{padding:10px 16px;background:var(--accent2);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;width:100%;margin-top:4px}
-.btn-green:hover,.btn-amber:hover{opacity:.88}
-
-.list-item{display:flex;align-items:center;gap:12px;padding:.85rem 0;border-bottom:1px solid var(--border)}
-.list-item:last-child{border-bottom:none}
-.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.item-info{flex:1;min-width:0}
-.item-name{font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.item-meta{font-size:11px;color:var(--text3);margin-top:2px}
-.item-amt{font-size:15px;font-weight:500;flex-shrink:0}
-.item-amt.red{color:var(--danger)}
-.item-amt.green{color:var(--accent)}
-.btn-del{background:none;border:none;cursor:pointer;color:var(--text3);font-size:15px;padding:3px 6px;border-radius:4px}
-.btn-del:hover{color:var(--danger);background:var(--danger-light)}
-.empty-state{text-align:center;padding:2.5rem 1rem;color:var(--text3);font-size:13px}
-.empty-icon{font-size:32px;margin-bottom:8px}
-
-.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.bar-lbl{font-size:11px;color:var(--text2);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bar-track{flex:1;height:7px;background:var(--surface2);border-radius:4px;overflow:hidden}
-.bar-fill{height:100%;border-radius:4px;transition:width .5s ease}
-.bar-amt{font-size:11px;color:var(--text2);width:64px;text-align:right;flex-shrink:0}
-
-.task-item{display:flex;align-items:flex-start;gap:12px;padding:.85rem 0;border-bottom:1px solid var(--border)}
-.task-item:last-child{border-bottom:none}
-.task-check{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);background:none;cursor:pointer;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center}
-.task-check.done{background:var(--accent);border-color:var(--accent)}
-.task-check.done::after{content:'✓';color:#fff;font-size:10px}
-.task-text{flex:1;font-size:14px;color:var(--text);line-height:1.4}
-.task-text.done{text-decoration:line-through;color:var(--text3)}
-.task-due{font-size:11px;color:var(--text3);margin-top:2px}
-.task-priority{font-size:10px;padding:2px 8px;border-radius:10px;flex-shrink:0}
-.pri-high{background:var(--danger-light);color:var(--danger)}
-.pri-med{background:var(--accent2-light);color:var(--accent2)}
-.pri-low{background:var(--accent-light);color:var(--accent)}
-
-.goal-item{margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border)}
-.goal-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.goal-hdr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
-.goal-name{font-size:14px;color:var(--text)}
-.goal-pct{font-size:12px;color:var(--accent);font-weight:500}
-.goal-track{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-bottom:4px}
-.goal-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .5s ease}
-.goal-sub{display:flex;justify-content:space-between;font-size:11px;color:var(--text3)}
-
-.net-strip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.85rem 1rem;display:flex;align-items:center;gap:12px;margin-bottom:1rem}
-.net-lbl{font-size:11px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;width:56px;flex-shrink:0}
-.net-track{flex:1;height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;display:flex}
-.net-exp-fill{height:100%;background:var(--danger)}
-.net-sav-fill{height:100%;background:var(--accent)}
-.net-val{font-size:14px;font-weight:500;width:80px;text-align:right;flex-shrink:0}
-
-/* SAVINGS SUB-TABS */
-.page-tabs{display:flex;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:1.25rem}
-.page-tab{flex:1;padding:10px;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:.5px;text-transform:uppercase;border:none;background:transparent;color:var(--text2);cursor:pointer}
-.page-tab.active{background:var(--accent);color:#fff}
-.tab-section{display:none}
-.tab-section.visible{display:block;animation:fadeUp .2s ease}
-
-/* CHITTI */
-.chitti-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.25rem;margin-bottom:1rem}
-.chitti-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;gap:8px}
-.chitti-name{font-size:15px;font-weight:500;color:var(--text)}
-.chitti-meta{font-size:12px;color:var(--text3);margin-bottom:.85rem;line-height:1.5}
-.cbadge{font-size:10px;padding:3px 10px;border-radius:10px;flex-shrink:0;white-space:nowrap}
-.cbadge-active{background:var(--accent-light);color:var(--accent)}
-.cbadge-done{background:var(--surface2);color:var(--text3)}
-.cbadge-overdue{background:var(--danger-light);color:var(--danger)}
-.ch-prog-row{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:5px}
-.ch-track{height:7px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-bottom:.9rem}
-.ch-fill{height:100%;background:var(--accent);border-radius:4px;transition:width .5s ease}
-.ch-reminder{background:var(--accent2-light);border:1px solid var(--accent2);border-radius:var(--radius-sm);padding:.6rem .85rem;font-size:12px;color:var(--accent2);margin-bottom:.75rem}
-.ch-overdue{background:var(--danger-light);border:1px solid var(--danger);border-radius:var(--radius-sm);padding:.6rem .85rem;font-size:12px;color:var(--danger);margin-bottom:.75rem}
-.months-grid{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.85rem}
-.mchip{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;cursor:pointer;border:1px solid var(--border);transition:transform .1s}
-.mchip:active{transform:scale(.9)}
-.mchip.paid{background:var(--accent);color:#fff;border-color:var(--accent)}
-.mchip.due-now{background:var(--accent2-light);color:var(--accent2);border-color:var(--accent2);font-weight:700}
-.mchip.overdue{background:var(--danger-light);color:var(--danger);border-color:var(--danger)}
-.mchip.future{background:var(--surface2);color:var(--text3)}
-.ch-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.btn-mark-paid{padding:7px 14px;background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer}
-.btn-mark-paid:hover{opacity:.88}
-.legend-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:.9rem}
-.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
-.legend-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
-.dash-alert{border-radius:var(--radius-sm);padding:.8rem 1rem;margin-bottom:.75rem;font-size:13px}
-.dash-alert-title{font-weight:500;margin-bottom:2px;font-size:14px}
-.dash-alert.amber{background:var(--accent2-light);border:1px solid var(--accent2);color:var(--accent2)}
-.dash-alert.red{background:var(--danger-light);border:1px solid var(--danger);color:var(--danger)}
-
-.quick-add{position:fixed;bottom:72px;right:1.25rem;z-index:200}
-.fab{width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;font-size:24px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(45,90,61,.28)}
-.fab:hover{transform:scale(1.06)}
-.quick-menu{position:absolute;bottom:62px;right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.5rem;display:none;min-width:180px}
-.quick-menu.open{display:block;animation:fadeUp .15s ease}
-.qopt{display:block;width:100%;text-align:left;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);background:none;border:none;cursor:pointer;border-radius:var(--radius-sm)}
-.qopt:hover{background:var(--surface2)}
-
-@media(max-width:480px){
-  .grid-3{grid-template-columns:1fr 1fr}
-  .form-row.triple{grid-template-columns:1fr 1fr}
-  .topbar-name{display:none}
-}
-</style>
-</head>
-<body>
-
-<!-- AUTH -->
-<div id="auth-screen">
-  <div class="auth-logo">Finlo</div>
-  <div class="auth-tagline">Your personal finance companion</div>
-  <div class="auth-card">
-    <div style="background:var(--accent-light);border:1px solid var(--accent);border-radius:var(--radius-sm);padding:.7rem .9rem;font-size:12px;color:var(--accent);margin-bottom:1.25rem;line-height:1.5">
-      <strong>First time on this device?</strong> Please sign up even if you have an account on another device. Data is stored locally on each device.
-    </div>
-    <div class="auth-tabs">
-      <button class="auth-tab active" onclick="switchAuthTab('login',this)">Sign in</button>
-      <button class="auth-tab" onclick="switchAuthTab('signup',this)">Sign up</button>
-    </div>
-    <div id="login-form">
-      <div class="field"><label>Email</label><input type="email" id="li-email" placeholder="you@email.com" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <div class="field"><label>Password</label><input type="password" id="li-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-      <button class="btn-primary" onclick="doLogin()">Sign in</button>
-      <div class="auth-msg" id="li-msg"></div>
-    </div>
-    <div id="signup-form" style="display:none">
-      <div class="field"><label>Your name</label><input type="text" id="su-name" placeholder="e.g. Samhitha"/></div>
-      <div class="field"><label>Email</label><input type="email" id="su-email" placeholder="you@email.com"/></div>
-      <div class="field"><label>Password</label><input type="password" id="su-pass" placeholder="min. 6 characters" onkeydown="if(event.key==='Enter')doSignup()"/></div>
-      <button class="btn-primary" onclick="doSignup()">Create account</button>
-      <div class="auth-msg" id="su-msg"></div>
-    </div>
-  </div>
-</div>
-
-<!-- APP -->
-<div id="app-screen">
-  <div class="topbar">
-    <div class="topbar-logo">Finlo</div>
-    <div class="topbar-user">
-      <span class="topbar-name" id="tb-name"></span>
-      <div class="avatar" id="tb-avatar"></div>
-      <button class="btn-logout" onclick="doLogout()">Sign out</button>
-    </div>
-  </div>
-
-  <div class="main-content">
-
-    <!-- DASHBOARD -->
-    <div class="page active" id="page-dashboard">
-      <div class="page-title" id="dash-greeting">Good morning ✦</div>
-      <div class="grid-2">
-        <div class="metric"><div class="metric-label">Month expenses</div><div class="metric-val red" id="d-exp">₹0</div></div>
-        <div class="metric"><div class="metric-label">Month savings</div><div class="metric-val green" id="d-sav">₹0</div></div>
-      </div>
-      <div class="net-strip">
-        <div class="net-lbl">Net</div>
-        <div class="net-track"><div class="net-exp-fill" id="d-net-exp" style="width:50%"></div><div class="net-sav-fill" id="d-net-sav" style="width:50%"></div></div>
-        <div class="net-val" id="d-net-val">₹0</div>
-      </div>
-      <div id="dash-chitti-alerts"></div>
-      <div class="section-label">Tasks due soon</div>
-      <div class="card" style="padding:.25rem 1.25rem">
-        <div id="dash-tasks"><div class="empty-state"><div class="empty-icon">✅</div>No pending tasks</div></div>
-      </div>
-      <div class="section-label">Recent transactions</div>
-      <div class="card" style="padding:.25rem 1.25rem">
-        <div id="dash-txns"><div class="empty-state"><div class="empty-icon">💳</div>No transactions yet</div></div>
-      </div>
-      <div class="section-label">Goals progress</div>
-      <div class="card">
-        <div id="dash-goals"><div class="empty-state"><div class="empty-icon">🎯</div>No goals yet</div></div>
-      </div>
-    </div>
-
-    <!-- EXPENSES -->
-    <div class="page" id="page-expenses">
-      <div class="page-title">Expenses</div>
-      <div class="card">
-        <div class="section-label">Add expense</div>
-        <div class="form-row">
-          <div class="form-group"><label>Description</label><input type="text" id="e-name" placeholder="e.g. Zomato order"/></div>
-          <div class="form-group"><label>Amount (₹)</label><input type="number" id="e-amt" placeholder="0" min="0"/></div>
-        </div>
-        <div class="form-row triple">
-          <div class="form-group"><label>Category</label>
-            <select id="e-cat"><option>Food</option><option>Transport</option><option>Shopping</option><option>Bills</option><option>Health</option><option>Entertainment</option><option>Other</option></select>
-          </div>
-          <div class="form-group"><label>Date</label><input type="date" id="e-date"/></div>
-          <div class="form-group"><label>Note</label><input type="text" id="e-note" placeholder="optional"/></div>
-        </div>
-        <button class="btn-green" onclick="addExpense()">+ Add expense</button>
-      </div>
-      <div class="grid-3">
-        <div class="metric"><div class="metric-label">This month</div><div class="metric-val red" id="em-total">₹0</div></div>
-        <div class="metric"><div class="metric-label">All time</div><div class="metric-val red" id="ea-total">₹0</div></div>
-        <div class="metric"><div class="metric-label">Entries</div><div class="metric-val" id="e-count">0</div></div>
-      </div>
-      <div class="card" id="e-chart-card" style="display:none">
-        <div class="section-label">By category</div>
-        <div id="e-bars"></div>
-      </div>
-      <div class="card" style="padding:.25rem 1.25rem">
-        <div id="expense-list"><div class="empty-state"><div class="empty-icon">📋</div>No expenses yet</div></div>
-      </div>
-    </div>
-
-    <!-- SAVINGS (with Chitti sub-tab) -->
-    <div class="page" id="page-savings">
-      <div class="page-title">Savings</div>
-      <div class="page-tabs">
-        <button class="page-tab active" id="tab-btn-regular" onclick="switchSavTab('regular',this)">Regular savings</button>
-        <button class="page-tab" id="tab-btn-chitti" onclick="switchSavTab('chitti',this)">🪙 Chitti</button>
-      </div>
-
-      <!-- REGULAR SAVINGS -->
-      <div class="tab-section visible" id="sav-tab-regular"
+/* PAGES */
+.pg{display:none}
+.pg.on{display:block;animation:fu .22s ease}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}
